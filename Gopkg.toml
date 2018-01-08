@@ -28,3 +28,7 @@
 [[constraint]]
   name = "github.com/namsral/flag"
   version = "1.7.4-pre"
+
+[[constraint]]
+  name = "google.golang.org/grpc"
+  version = "1.9.0"

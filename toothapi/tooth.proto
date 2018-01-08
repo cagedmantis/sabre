@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package toothapi;
+
+message ByteRange {
+	uint64 start_byte = 1;
+	uint64 end_byte = 2;
+}
+
+message WriteRequest {
+	uint64 chunk_handle = 1;
+	ByteRange byte_range = 2;
+}
+
+message WriteResponse {
+	bool ok = 1;
+}
+
+message ReadRequest {
+	uint64 chunk_handle = 1;
+	ByteRange byte_range = 2;
+}
+
+message ReadResponse {
+	repeated bytes datum = 1;
+}
+
+message ListChunksRequest {}
+
+message ListChunksResponse {
+	repeated uint64 chunks = 1;
+}
+
+message CreateChunkRequest {
+	uint64 chunk = 1;
+}
+
+message CreateChunkResponse {}
+
+service ToothAPI {
+	rpc Write(WriteRequest) returns (WriteResponse);
+	rpc Read(ReadRequest) returns (ReadResponse);
+	rpc ListChunks(ListChunksRequest) returns (ListChunksResponse);
+	rpc CreateChunk(CreateChunkRequest) returns (CreateChunkResponse);
+}
