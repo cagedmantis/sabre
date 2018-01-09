@@ -16,6 +16,6 @@ clean:
 	@echo ">> cleaning"
 
 proto:
-	protoc -I=toothapi --go_out=toothapi toothapi/tooth.proto
+	protoc -I toothapi/ toothapi/tooth.proto --go_out=plugins=grpc:toothapi
 
 .PHONY: build clean test vet 

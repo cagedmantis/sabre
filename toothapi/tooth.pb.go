@@ -24,6 +24,11 @@ import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -197,6 +202,177 @@ func init() {
 	proto.RegisterType((*ListChunksResponse)(nil), "toothapi.ListChunksResponse")
 	proto.RegisterType((*CreateChunkRequest)(nil), "toothapi.CreateChunkRequest")
 	proto.RegisterType((*CreateChunkResponse)(nil), "toothapi.CreateChunkResponse")
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// Client API for ToothAPI service
+
+type ToothAPIClient interface {
+	Write(ctx context.Context, in *WriteRequest, opts ...grpc.CallOption) (*WriteResponse, error)
+	Read(ctx context.Context, in *ReadRequest, opts ...grpc.CallOption) (*ReadResponse, error)
+	ListChunks(ctx context.Context, in *ListChunksRequest, opts ...grpc.CallOption) (*ListChunksResponse, error)
+	CreateChunk(ctx context.Context, in *CreateChunkRequest, opts ...grpc.CallOption) (*CreateChunkResponse, error)
+}
+
+type toothAPIClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewToothAPIClient(cc *grpc.ClientConn) ToothAPIClient {
+	return &toothAPIClient{cc}
+}
+
+func (c *toothAPIClient) Write(ctx context.Context, in *WriteRequest, opts ...grpc.CallOption) (*WriteResponse, error) {
+	out := new(WriteResponse)
+	err := grpc.Invoke(ctx, "/toothapi.ToothAPI/Write", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *toothAPIClient) Read(ctx context.Context, in *ReadRequest, opts ...grpc.CallOption) (*ReadResponse, error) {
+	out := new(ReadResponse)
+	err := grpc.Invoke(ctx, "/toothapi.ToothAPI/Read", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *toothAPIClient) ListChunks(ctx context.Context, in *ListChunksRequest, opts ...grpc.CallOption) (*ListChunksResponse, error) {
+	out := new(ListChunksResponse)
+	err := grpc.Invoke(ctx, "/toothapi.ToothAPI/ListChunks", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *toothAPIClient) CreateChunk(ctx context.Context, in *CreateChunkRequest, opts ...grpc.CallOption) (*CreateChunkResponse, error) {
+	out := new(CreateChunkResponse)
+	err := grpc.Invoke(ctx, "/toothapi.ToothAPI/CreateChunk", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for ToothAPI service
+
+type ToothAPIServer interface {
+	Write(context.Context, *WriteRequest) (*WriteResponse, error)
+	Read(context.Context, *ReadRequest) (*ReadResponse, error)
+	ListChunks(context.Context, *ListChunksRequest) (*ListChunksResponse, error)
+	CreateChunk(context.Context, *CreateChunkRequest) (*CreateChunkResponse, error)
+}
+
+func RegisterToothAPIServer(s *grpc.Server, srv ToothAPIServer) {
+	s.RegisterService(&_ToothAPI_serviceDesc, srv)
+}
+
+func _ToothAPI_Write_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WriteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ToothAPIServer).Write(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/toothapi.ToothAPI/Write",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ToothAPIServer).Write(ctx, req.(*WriteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ToothAPI_Read_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ToothAPIServer).Read(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/toothapi.ToothAPI/Read",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ToothAPIServer).Read(ctx, req.(*ReadRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ToothAPI_ListChunks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListChunksRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ToothAPIServer).ListChunks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/toothapi.ToothAPI/ListChunks",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ToothAPIServer).ListChunks(ctx, req.(*ListChunksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ToothAPI_CreateChunk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateChunkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ToothAPIServer).CreateChunk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/toothapi.ToothAPI/CreateChunk",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ToothAPIServer).CreateChunk(ctx, req.(*CreateChunkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _ToothAPI_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "toothapi.ToothAPI",
+	HandlerType: (*ToothAPIServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Write",
+			Handler:    _ToothAPI_Write_Handler,
+		},
+		{
+			MethodName: "Read",
+			Handler:    _ToothAPI_Read_Handler,
+		},
+		{
+			MethodName: "ListChunks",
+			Handler:    _ToothAPI_ListChunks_Handler,
+		},
+		{
+			MethodName: "CreateChunk",
+			Handler:    _ToothAPI_CreateChunk_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "tooth.proto",
 }
 
 func init() { proto.RegisterFile("tooth.proto", fileDescriptor0) }
