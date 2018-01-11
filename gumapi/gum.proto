@@ -11,10 +11,6 @@ message RangeRequest{
 
 message ToothCheckin{}
 
-
-
-
-
 message OpenFileRequest{}
 message CloseFileRequest{}
 
