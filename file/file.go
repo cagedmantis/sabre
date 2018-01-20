@@ -98,4 +98,5 @@ func NewFile(path string) *File {
 		Size:   0,
 		ranges: NewRangeSystem(),
 	}
+
 }
