@@ -17,5 +17,6 @@ clean:
 
 proto:
 	protoc -I toothapi/ toothapi/tooth.proto --go_out=plugins=grpc:toothapi
+	protoc -I gumapi/ gumapi/gum.proto --go_out=plugins=grpc:gumapi
 
 .PHONY: build clean test vet 

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package gumapi;
+
+// client to gum
+message OpenFileRequest{
+	string file_path = 1;
+	bool create_if_not_exist = 2;
+}
+message OpenFileResponse{}
+
+
+message CloseFileRequest{} // TODO useful for lease handling. 
+message CloseFileResponse{}
+
+
+message DeleteFileRequest{
+	string file_path = 1;
+}
+message DeleteFileResponse{}
+
+message RangeRequest{
+	string file_name = 1;
+	uint64 chunk_index = 2; // offset within a file
+}
+message RangeResponse{}
+
+// tooth to gum
+message ToothCheckinRequest{
+	string client = 1;
+	repeated uint64 chunk_id = 2;
+	uint64 load = 3;
+}
+message ToothCheckinResponse{}
+
+service GumAPI {
+	rpc OpenFile(OpenFileRequest) returns (OpenFileResponse);
+	rpc CloseFile(CloseFileRequest) returns (CloseFileResponse);
+	rpc DeleteFile(DeleteFileRequest) returns (DeleteFileResponse);
+	rpc Range(RangeRequest) returns (RangeResponse);
+	rpc ToochCheckin(ToothCheckinRequest) returns (ToothCheckinResponse);
+}
